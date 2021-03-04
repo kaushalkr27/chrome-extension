@@ -1,34 +1,53 @@
 var port = chrome.runtime.connect({ name: "neoscale" });
 
+var my_elem = document.getElementById('navbar-main');
+
+var span = document.createElement('div');
+span.innerHTML = 'Loading...';
+span.style = "background-color:blue; height:30px; font-size:medium; text-align:center; color: white; font-weight:600"
+
+
+function setHeader(header_str) {
+    my_elem.parentNode.insertBefore(span, my_elem);
+    span.innerHTML = header_str;
+}
+
 port.onMessage.addListener(function (msg) {
     console.log("port active");
     if (msg.message == "2") {
+        setHeader("Executing Action 1");
         start_2();
         console.log("recieved 22222");
     }
     else if (msg.message == "3") {
+        setHeader("Executing Action 2");
         console.log("recieved 33333");
         start_3();
     }
     else if (msg.message == "4") {
+        setHeader("Executing Action 3");
         console.log("recieved 44444");
         start_4();
     }
     else if (msg.message == "5") {
+        setHeader("Executing Action 4");
         console.log("recieved 55555");
         start_5();
     }
     else if (msg.message == "6") {
+        setHeader("Executing Action 5");
         console.log("recieved 66666");
         start_6();
     }
 });
+
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
         if (request.message === "1") {
             console.log("start 1");
             start_1();
+            setHeader("Starting Script. ");
         }
     }
 );
