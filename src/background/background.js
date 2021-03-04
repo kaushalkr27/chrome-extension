@@ -14,12 +14,32 @@ chrome.runtime.onConnect.addListener(function (port) {
                 }
             });
         }
+        else if(msg.message == "completed 2"){
+            chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+                if (changeInfo.status == "complete") {
+                    setTimeout(postMessage, 2000, {message: '3'})
+                }
+            });
+        }
+        else if(msg.message == "completed 3"){
+                    setTimeout(postMessage, 2000, {message: '4'})
+                }
+        else if(msg.message == "completed 4"){
+            setTimeout(postMessage, 2000, {message: '5'})
+        }
+        else if(msg.message == "completed 5"){
+            chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
+                if (changeInfo.status == "complete") {
+                    setTimeout(postMessage, 2000, {message: '6'})
+                }
+            });
+        }
     });
 });
 
 function postMessage(message) {
     portGlobal.postMessage(message)
-    console.log("Sent to start 2");
+    console.log("Sent message");
 }
 
 
