@@ -8,36 +8,56 @@ span.style = "background-color:blue; height:30px; font-size:medium; text-align:c
 
 
 function setHeader(header_str) {
-    my_elem.parentNode.insertBefore(span, my_elem);
+    // my_elem.parentNode.insertBefore(span, my_elem);
+    document.body.prepend(span);
     span.innerHTML = header_str;
 }
 
 port.onMessage.addListener(function (msg) {
     console.log("port active");
-    if (msg.message == "2") {
+    if (msg.message == "start 2") {
         setHeader("Executing Action 1");
         start_2();
         console.log("recieved 22222");
     }
-    else if (msg.message == "3") {
+    else if (msg.message == "start 3") {
         setHeader("Executing Action 2");
         console.log("recieved 33333");
         start_3();
     }
-    else if (msg.message == "4") {
+    else if (msg.message == "start 4") {
         setHeader("Executing Action 3");
         console.log("recieved 44444");
         start_4();
     }
-    else if (msg.message == "5") {
+    else if (msg.message == "start 5") {
         setHeader("Executing Action 4");
         console.log("recieved 55555");
         start_5();
     }
-    else if (msg.message == "6") {
+    else if (msg.message == "start 6") {
         setHeader("Executing Action 5");
         console.log("recieved 66666");
         start_6();
+    }
+    else if (msg.message == "start 7") {
+        setHeader("Executing Action 6");
+        console.log("recieved 77777");
+        start_7();
+    }
+    else if (msg.message == "start 8") {
+        setHeader("Executing Action 7");
+        console.log("recieved 88888");
+        start_8();
+    }
+    else if(msg.message == "start 9"){
+        setHeader("Executing Action 8");
+        console.log("recieved 99999");
+        start_9();
+    }
+    else if(msg.message == "start 10"){
+        setHeader("Executing Action 9");
+        start_10();
     }
 });
 
@@ -60,7 +80,7 @@ function sendMesssageToBakground(json) {
 
 function clickOnSearch(searchButton) {
     searchButton.click();
-    sendMesssageToBakground({ "message": "completed 1" })
+    sendMesssageToBakground({ "message": 1, "same": "d" })
 }
 
 function start_1() {
@@ -77,13 +97,13 @@ function start_2() {
     var item = allSponsoredItems[1].getElementsByTagName('a');
     console.log(item);
     item[0].click();
-    sendMesssageToBakground({ "message": "completed 2" })
+    sendMesssageToBakground({ "message": 2, "same": "d"  })
 }
 
 function start_3() {
     var image = document.getElementsByClassName('a-dynamic-image');
     image[0].click();
-    sendMesssageToBakground({ "message": "completed 3" })
+    sendMesssageToBakground({ "message": 3, "same": "s"  })
 }
 
 function start_4() {
@@ -99,7 +119,7 @@ function start_4() {
             var closeButton = document.getElementsByClassName('a-icon-close')[1];
             closeButton.click();
             clearInterval(interval);
-            sendMesssageToBakground({ "message": "completed 4" })
+            sendMesssageToBakground({ "message": 4, "same": "s"  })
         }
         i = i + 1;
     }, 3000);
@@ -111,7 +131,7 @@ function start_5() {
         setTimeout(function () {
             var oneStar = document.getElementsByClassName('1star')[1];
             oneStar.click();
-            sendMesssageToBakground({ "message": "completed 5" })
+            sendMesssageToBakground({ "message": 5, "same": "d"  })
         }, 2000);
     });
 
@@ -130,5 +150,39 @@ function start_6() {
         document.getElementsByClassName('review')[2].scrollIntoView({
             behavior: 'smooth'
         });
+        setTimeout(function(){
+            document.getElementsByClassName('a-button-text')[1].scrollIntoView({ behavior: 'smooth' });
+            setTimeout(function(){
+                document.getElementsByClassName('a-button-text')[1].click();
+                sendMesssageToBakground({ "message": 6, "same": "d"  });
+            }, 2000);
+        }, 3000);
+    }, 2000);
+}
+
+function start_7(){
+    setTimeout(function(){
+        document.getElementById('add-to-cart-button').click();
+        sendMesssageToBakground({ "message": 7, "same": "d"  });
+    }, 2000);
+}
+
+function start_8(){
+    setTimeout(function(){
+        document.getElementById('hlb-ptc-btn-native').click();
+        sendMesssageToBakground({ "message": 8, "same": "d"  });
+    }, 2000);
+}
+
+function start_9(){
+    setTimeout(function(){
+        document.getElementsByClassName('a-button-text')[0].click();
+        sendMesssageToBakground({"message":9, "same": "d" });
+    }, 2000);
+}
+
+function start_10(){
+    setTimeout(function(){
+        document.getElementsByClassName('a-button-text')[0].click();
     }, 2000);
 }
